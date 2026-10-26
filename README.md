@@ -11,6 +11,8 @@
 | **Para quem** | adultos que estão aprendendo a ler e a escrever |
 | **App** | HTML + CSS + JS em arquivos separados, sem build · demo em <https://lucasnoelgb.github.io/Lia-IA-Hackthon/> (GitHub Pages) |
 | **Repositório** | <https://github.com/lucasnoelgb/Lia-IA-Hackthon> |
+| **Demo** | <https://liahackthon.vercel.app/> |
+| **Video** | <link> |
 | **Equipe** | Lucas ([@lucasnoelgb](https://github.com/lucasnoelgb)) |
 
 ---
