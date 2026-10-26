@@ -34,5 +34,62 @@ with sync_playwright() as p:
         if ops != ["1", "1", "1"]:
             fails.append(f"{w}px: letras LIA invisíveis {ops}")
     b.close()
+
+# ---- Lição do nome: traçado com mouse, desfazer, apagar, guia e modelo ----
+with sync_playwright() as p:
+    b = p.chromium.launch()
+    pg = b.new_page(viewport={"width": 1100, "height": 800})
+    errs = []
+    pg.on("pageerror", lambda e: errs.append(str(e)))
+    pg.goto(URL)
+    pg.wait_for_timeout(500)
+    pg.evaluate(SEED + "go(lesson,2)")
+    pg.wait_for_timeout(1300)
+    if not pg.evaluate("!!document.querySelector('#cv')"):
+        fails.append("primeira lição não é o traçado do nome")
+    else:
+        x, y, w, h = pg.evaluate("(()=>{const r=cv.getBoundingClientRect();return [r.x,r.y,r.width,r.height]})()")
+        def stroke(a, c):
+            pg.mouse.move(x + w * a[0], y + h * a[1]); pg.mouse.down()
+            pg.mouse.move(x + w * c[0], y + h * c[1], steps=6); pg.mouse.up()
+        stroke((.3, .8), (.3, .2)); stroke((.7, .2), (.7, .8))
+        n2 = pg.evaluate("tr.strokes.length")
+        pg.click("#un")
+        n1 = pg.evaluate("tr.strokes.length")
+        pg.click("#cl")
+        n0 = pg.evaluate("tr.strokes.length")
+        if (n2, n1, n0) != (2, 1, 0):
+            fails.append(f"traçado/desfazer/apagar: {(n2, n1, n0)}")
+        pg.click("#gd"); pg.click("#md")
+        if "desligada" not in pg.inner_text("#gd") or not pg.evaluate("tm.classList.contains('hid')"):
+            fails.append("guia/modelo não alternam")
+    if errs:
+        fails.append(f"erros JS no traçado {errs}")
+    b.close()
+
+# ---- Marca LIA sem quadrado de foco + progressão letras -> sílabas -> palavra ----
+with sync_playwright() as p:
+    b = p.chromium.launch()
+    pg = b.new_page(viewport={"width": 390, "height": 844})
+    errs = []
+    pg.on("pageerror", lambda e: errs.append(str(e)))
+    pg.goto(URL)
+    pg.wait_for_timeout(500)
+    pg.evaluate(SEED + "go(bookScr,3)")
+    pg.wait_for_timeout(900)
+    pg.evaluate("scr.scrollTop=scr.scrollHeight")
+    pg.wait_for_timeout(1400)
+    pg.click(".gl >> nth=2", force=True)
+    if pg.evaluate("document.activeElement.classList.contains('gl')"):
+        fails.append("marca LIA ficou com foco (quadrado ao clicar)")
+    for mastered, esperado in [("[]", "sílabas"), ("['OVO','FOTO']", "palavra inteira")]:
+        pg.evaluate(SEED.replace("key:'LIA-X'", "key:'LIA-X',nameDone:true,mastered:" + mastered) + "cur=nextWord();wordTrace()")
+        pg.wait_for_timeout(900)
+        units = pg.evaluate("tr.L")
+        if (esperado == "sílabas") != (len(units) > 1):
+            fails.append(f"progressão errada com {mastered}: {units}")
+    if errs:
+        fails.append(f"erros JS {errs}")
+    b.close()
 print("FALHAS:", fails) if fails else print("OK")
 sys.exit(1 if fails else 0)

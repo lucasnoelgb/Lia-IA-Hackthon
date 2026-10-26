@@ -123,7 +123,28 @@ html.mo .gl{opacity:0}
 .mk{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 0 4px;border-top:2px solid var(--line)}
 .mk svg{width:min(240px,72%);height:auto;overflow:visible;touch-action:manipulation}
 .gl{transform-box:fill-box;transform-origin:50% 50%;cursor:pointer}.gl path{fill:url(#lg)}
-.gl:focus-visible{outline:4px solid var(--orange);outline-offset:6px;border-radius:6px}
+.gl,.gl *{outline:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}.mk svg{-webkit-tap-highlight-color:transparent}.gl:focus-visible path{stroke:var(--orange);stroke-width:5;paint-order:stroke}
+
+/* ===== Atmosfera e profundidade (claude-cookbooks: frontend_aesthetics, tema "solarpunk") ===== */
+:root{--glow1:rgba(255,139,61,.16);--glow2:rgba(95,191,114,.16);--bd:#CFD8DF;--hl:1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--glow1:rgba(255,139,61,.10);--glow2:rgba(95,191,114,.08);--bd:#0A111C;--hl:.55}}
+:root[data-theme="dark"]{--glow1:rgba(255,139,61,.10);--glow2:rgba(95,191,114,.08);--bd:#0A111C;--hl:.55}
+body{background:radial-gradient(60% 50% at 15% 20%,rgba(95,191,114,.35),transparent 70%),radial-gradient(50% 50% at 85% 80%,rgba(255,139,61,.28),transparent 70%),var(--bd)}
+#app{background:radial-gradient(120% 55% at 100% 0%,var(--glow1),transparent 60%),radial-gradient(90% 45% at 0% 100%,var(--glow2),transparent 60%),var(--paper)}
+#app::before{content:"";position:absolute;left:0;right:0;bottom:0;height:230px;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 440 230%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M0 120C80 70 160 90 240 105S380 85 440 100V230H0Z%22 fill=%22%235FBF72%22 fill-opacity=%22.16%22/%3E%3Cpath d=%22M0 160C100 120 200 150 300 135S410 125 440 140V230H0Z%22 fill=%22%232D8F57%22 fill-opacity=%22.14%22/%3E%3Cpath d=%22M0 195C90 170 180 190 270 178S400 170 440 182V230H0Z%22 fill=%22%230B8283%22 fill-opacity=%22.12%22/%3E%3Cg fill=%22%23FF8B3D%22 fill-opacity=%22.5%22%3E%3Ccircle cx=%2258%22 cy=%22152%22 r=%223%22/%3E%3Ccircle cx=%22132%22 cy=%22170%22 r=%222.5%22/%3E%3Ccircle cx=%22318%22 cy=%22158%22 r=%223%22/%3E%3Ccircle cx=%22392%22 cy=%22150%22 r=%222.5%22/%3E%3C/g%3E%3C/svg%3E") bottom/100% 100% no-repeat;opacity:var(--hl);pointer-events:none;z-index:0}
+.screen{position:relative;z-index:1}
+.hero,.wp,.idc{position:relative;overflow:hidden;isolation:isolate}
+.hero::before,.wp::before,.idc::before{content:"";position:absolute;z-index:-1;right:-70px;top:-70px;width:240px;height:240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 16px,rgba(255,255,255,.12) 16px 18px);pointer-events:none}
+h1,h2,.goalh,.wp b{text-wrap:balance}
+
+/* ===== Traçado ===== */
+.tm{display:flex;align-items:center;justify-content:center;width:100%;height:clamp(88px,12vh,118px);border-radius:24px;background:var(--card,#fff);border:2px solid var(--line);color:var(--ink);font:800 clamp(72px,10.5vh,100px)/1 "Bricolage Grotesque","Atkinson Hyperlegible",system-ui,sans-serif;cursor:pointer}
+.tm.hid span{visibility:hidden}
+.tp{position:relative;flex:none;height:clamp(170px,26vh,260px);border-radius:24px;background:var(--card,#fff);border:2px dashed var(--line);overflow:hidden;color:var(--blue,#1763AE)}
+.tp canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tb{min-height:48px;font-size:16px;padding:0 6px;line-height:1.1}.tb:disabled{opacity:.45}.tb.on{background:var(--ink);color:var(--paper)}
+.tdots{display:flex;gap:8px;justify-content:center}.tdots i{width:14px;height:14px;border-radius:50%;background:var(--line)}.tdots i.on{background:var(--orange)}.tdots i.ok{background:#2D8F57}
 </style>
 </head>
 <body>
@@ -143,7 +164,7 @@ const GOALS={
  outros:{i:'dots',t:'Outro objetivo',m:'aprender no seu ritmo',w:[['CASA',['CA','SA'],'🏠'],['MESA',['ME','SA'],'🍽️'],['AMIGO',['A','MI','GO'],'🤝'],['FAMÍLIA',['FA','MÍ','LIA'],'👨‍👩‍👧'],['TRABALHO',['TRA','BA','LHO'],'🧰']]}
 };
 const FOCI={reading:['eye','Ler'],writing:['pen','Escrever'],speaking:['mic','Falar e entender']};
-const S0={nick:'',av:0,key:'',goal:'',custom:'',focus:'',mastered:[],wins:0,hist:[]};
+const S0={nameDone:false,nick:'',av:0,key:'',goal:'',custom:'',focus:'',mastered:[],wins:0,hist:[]};
 let S={...S0},step=0,other=false,cur=null,ex=null,cancel=0;
 try{const r=localStorage.getItem('lia');if(r)S={...S0,...JSON.parse(r)}}catch(e){}
 const save=()=>{try{localStorage.setItem('lia',JSON.stringify(S))}catch(e){}};
@@ -226,7 +247,7 @@ function home(){
   <button class="cta white" id="go">Continuar minha jornada${ic('go')}</button></section>
  <section><div class="hdr"><h2>Sua semana</h2><span class="soft" style="font-size:16px">${hl} ${hl==1?'dia':'dias'} de prática</span></div><div class="wk">${week()}</div></section>
  <section><div class="line"><h2>Sua jornada</h2><span class="pill">Nível ${level()}</span></div><div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${done}"><i style="width:${done/n*100}%"></i></div>
-  <div class="line"><span class="soft">${done} de ${n} palavras${done<n?` · próxima: <b style="color:var(--ink)">${cu}</b>`:''}</span><button class="tx" id="jn">Ver trilha${ic('go','')}</button></div></section>
+  <div class="line"><span class="soft">${done} de ${n} palavras${done<n?` · próxima: <b style="color:var(--ink)">${!S.nameDone&&nameLetters().length?'o seu nome':cu}</b>`:''}</span><button class="tx" id="jn">Ver trilha${ic('go','')}</button></div></section>
  <div class="gd">${garden()}<div><b>Jardim da Vitória</b><p class="soft" style="font-size:16px">Cresce a cada tentativa, não só a cada acerto.</p></div></div>`;
  const msgs=[`${name()}, você apareceu hoje, e isso já é uma vitória. Vamos juntas: ${reason()}.`,`Cada tentativa faz o seu jardim crescer, ${name()}. Estou orgulhosa de você.`,`Devagar a gente chega longe, ${name()}. Hoje é mais um passo para ${reason()}.`];
  $('#vz').onclick=()=>liaSays(msgs[Math.floor(Math.random()*3)]);$('#go').onclick=()=>go(lesson,2);$('#jn').onclick=()=>go(journey,1);
@@ -254,12 +275,12 @@ function journey(){const g=GOALS[S.goal],cu=nextWord()[0],n=g.w.length,done=g.w.
 async function karaoke(w,sel){const my=++cancel;const els=[...document.querySelectorAll(sel)];
  for(let i=0;i<els.length;i++){if(my!==cancel)return;await say(w[1][i].toLowerCase(),.65,()=>els[i].classList.add('on'));await wait(120);els[i].classList.remove('on')}
  if(my===cancel)await say(w[0].toLowerCase(),.8)}
-function lesson(){cur=nextWord();const f=S.focus;
+function lesson(){if(!S.nameDone&&nameLetters().length)return nameLesson();cur=nextWord();const f=S.focus;
  scr.innerHTML=`<div class="top"><h1>Palavra de hoje</h1><span class="pill">Nível ${level()}</span></div>
  <div class="tile" aria-hidden="true">${cur[2]}</div><div class="word">${cur[1].map(s=>`<span class="k">${s}</span>`).join('')}</div>
  <p class="msg soft">Esta é a palavra <b>${cur[0]}</b>. Toque para ouvir.</p>
  <button class="ghost" id="hear">${ic('vol')}Ouvir com a Lia</button>
- <button class="cta" id="pr">${f=='writing'?'Montar a palavra':f=='reading'?'Treinar a leitura':'Falar a palavra'}${ic('go')}</button>`;
+ <button class="cta" id="pr">${f=='writing'?'Montar e escrever a palavra':f=='reading'?'Treinar a leitura':'Falar a palavra'}${ic('go')}</button>`;
  $('#hear').onclick=()=>karaoke(cur,'.k');$('#pr').onclick=()=>go(workshop,2);setTimeout(()=>karaoke(cur,'.k'),400);
 }
 
@@ -277,7 +298,7 @@ function drawWrite(){const w=cur[1];
  <button class="ghost" id="hear">${ic('vol')}Ouvir a palavra</button>`;
  lbk();$('#hear').onclick=()=>liaSays(cur[0].toLowerCase(),.75);
  scr.querySelectorAll('.piece').forEach(b=>b.onclick=()=>{const p=ex.pool.find(x=>x.i==b.dataset.i);
-  if(p.t===w[ex.placed.length]){navigator.vibrate&&navigator.vibrate(20);ex.placed.push(p.t);ex.pool=ex.pool.filter(x=>x!==p);say(p.t.toLowerCase(),.7);ex.placed.length==w.length?win():drawWrite()}
+  if(p.t===w[ex.placed.length]){navigator.vibrate&&navigator.vibrate(20);ex.placed.push(p.t);ex.pool=ex.pool.filter(x=>x!==p);say(p.t.toLowerCase(),.7);ex.placed.length==w.length?wordTrace():drawWrite()}
   else{b.classList.add('shake');navigator.vibrate&&navigator.vibrate([10,40,10]);$('#m').textContent='Quase lá! Vamos juntas de novo?';liaSays('Quase lá! Vamos juntas de novo?');setTimeout(()=>b.classList.remove('shake'),450)}});
 }
 function drawRead(){
@@ -297,7 +318,7 @@ function drawSpeak(){
  $('#mic').onclick=()=>listen(t=>{if(t&&norm(t).includes(norm(cur[0])))win();else{$('#m').textContent='Quase lá! Vamos juntas de novo?';liaSays('Quase lá! Vamos juntas de novo?')}});
 }
 async function win(){stopVoice();confetti();navigator.vibrate&&navigator.vibrate([30,60,30]);
- const first=!S.mastered.includes(cur[0]);if(first)S.mastered.push(cur[0]);S.wins++;{const t=new Date().toDateString();if(!(S.hist||[]).includes(t))S.hist=[...(S.hist||[]),t]}save();
+ const first=!S.mastered.includes(cur[0]);if(first)S.mastered.push(cur[0]);bump();save();
  const up=first&&S.mastered.length%2==0&&level()<5;
  scr.innerHTML=`<div class="tile" style="margin-top:24px" aria-hidden="true">${cur[2]}</div><div class="word"><span>${cur[0]}</span></div>
  <h1 style="text-align:center">Você conseguiu!</h1><p class="msg">${up?`Você subiu para o nível ${level()}.`:'Seu jardim cresceu um pouquinho.'}</p>
@@ -330,10 +351,69 @@ function bookScr(){const g=GOALS[S.goal],all=Object.values(GOALS).flatMap(x=>x.w
 }
 
 
+
+/* ===== Traçado: letra-modelo em cima, folha embaixo. Mouse, toque e caneta (Pointer Events) ===== */
+const LN={A:'a',B:'bê',C:'cê',D:'dê',E:'é',F:'éfe',G:'gê',H:'agá',I:'i',J:'jóta',K:'cá',L:'éle',M:'ême',N:'ene',O:'ó',P:'pê',Q:'quê',R:'érre',S:'ésse',T:'tê',U:'u',V:'vê',W:'dáblio',X:'xis',Y:'ípsilon',Z:'zê'};
+const letterName=c=>(LN[c.normalize('NFD').replace(/[\u0300-\u036f]/g,'')]||c.toLowerCase())+(c=='Ç'?' cedilha':'');
+const nameLetters=()=>[...((S.nick||'').trim().split(/\s+/)[0]||'').toUpperCase()].filter(c=>/\p{L}/u.test(c)).slice(0,12);
+/* sequência diária + vitórias (usado por win e nameWin; apontado pelo graphify como lógica duplicada) */
+function bump(){S.wins++;const t=new Date().toDateString();if(!(S.hist||[]).includes(t))S.hist=[...(S.hist||[]),t]}
+let tr=null;
+function nameLesson(){const L=nameLetters();tr={mode:'name',L,i:0,strokes:[],guide:true,model:true,warned:false,say:`${name()}, vamos começar pelo seu nome. Ele tem ${L.length} ${L.length==1?'letra':'letras'}. Vamos escrever uma de cada vez. A primeira letra é ${letterName(L[0])}. Passe o dedo por cima.`};drawTrace()}
+/* Progressão: 1-2 palavras por sílaba (com guia) · depois palavra inteira · a partir da 5ª, sem guia (de memória) */
+function wordTrace(){const syl=S.mastered.length<2&&cur[1].length>1,U=syl?cur[1].map(t=>t.toUpperCase()):[cur[0]];
+ tr={mode:'word',L:U,i:0,strokes:[],guide:S.mastered.length<4,model:true,warned:false,say:`Agora vamos escrever a palavra ${cur[0].toLowerCase()}. ${syl?'Uma sílaba de cada vez. Primeiro: '+U[0].toLowerCase()+'.':'Escreva a palavra inteira, do seu jeito.'}`};drawTrace()}
+function drawTrace(){const L=tr.L[tr.i],n=tr.L.length;
+ scr.innerHTML=`${head(tr.mode=='name'?'Escreva o seu nome':'Escreva a palavra')}<div class="tdots" role="img" aria-label="Parte ${tr.i+1} de ${n}">${tr.L.map((l,k)=>`<i class="${k<tr.i?'ok':k==tr.i?'on':''}"></i>`).join('')}</div>
+ <button class="tm" id="tm" aria-label="Ouvir ${L}"><span aria-hidden="true" style="font-size:calc(clamp(72px,10.5vh,100px) * ${Math.min(1,5/L.length).toFixed(2)})">${L}</span></button>
+ <div class="tp" id="tp"><canvas id="cv" role="img" aria-label="Espaço para escrever ${L}. Use o dedo, o mouse ou a caneta."></canvas></div>
+ <p class="msg" id="m" aria-live="polite">Passe o dedo por cima do desenho.</p>
+ <div class="tc"><button class="ghost tb" id="un">Desfazer</button><button class="ghost tb" id="cl">Apagar tudo</button><button class="ghost tb" id="gd"></button><button class="ghost tb" id="md"></button></div>
+ <button class="cta" id="ok">${tr.i==n-1?(tr.mode=='name'?'Terminei meu nome!':'Terminei a palavra!'):'Pronto, próxima '+(tr.mode=='name'?'letra':'sílaba')}${ic('go')}</button>`;
+ $('#bk').onclick=()=>go(home,0);
+ const cv=$('#cv'),x=cv.getContext('2d'),pad=$('#tp'),FAM='"Bricolage Grotesque","Atkinson Hyperlegible",system-ui,sans-serif';let zz=0;const size=(c,w,h)=>{c.font='800 100px '+FAM;return Math.min(h*.78,100*w*.86/(c.measureText(L).width||100))};
+ const lw=()=>Math.max(8,zz*.09);
+ const gl=(c,w,h)=>{c.font='800 '+Math.round(size(c,w,h))+'px '+FAM;c.textAlign='center';c.textBaseline='middle';c.fillText(L,w/2,h*.54)};
+ const paint=(c,w,h,k)=>{c.lineCap=c.lineJoin='round';c.lineWidth=lw()*k;tr.strokes.forEach(q=>{if(q.length==1){c.beginPath();c.arc(q[0][0]*w,q[0][1]*h,c.lineWidth/2,0,7);c.fill();return}c.beginPath();c.moveTo(q[0][0]*w,q[0][1]*h);for(let i=1;i<q.length-1;i++)c.quadraticCurveTo(q[i][0]*w,q[i][1]*h,(q[i][0]+q[i+1][0])/2*w,(q[i][1]+q[i+1][1])/2*h);const e=q[q.length-1];c.lineTo(e[0]*w,e[1]*h);c.stroke()})};
+ const render=()=>{const w=cv.width,h=cv.height;x.clearRect(0,0,w,h);x.fillStyle=x.strokeStyle=getComputedStyle(cv).color;
+  if(tr.guide){x.globalAlpha=.16;gl(x,w,h);x.globalAlpha=.6;x.setLineDash([8,10]);x.lineWidth=3;x.strokeText(L,w/2,h*.54);x.setLineDash([]);x.globalAlpha=1}
+  paint(x,w,h,1)};
+ const labels=()=>{$('#gd').textContent='Guia: '+(tr.guide?'ligada':'desligada');$('#gd').classList.toggle('on',tr.guide);$('#gd').setAttribute('aria-pressed',tr.guide);
+  $('#md').textContent=tr.model?'Esconder modelo':'Mostrar modelo';$('#md').classList.toggle('on',!tr.model);$('#md').setAttribute('aria-pressed',!tr.model);$('#tm').classList.toggle('hid',!tr.model);
+  $('#un').disabled=$('#cl').disabled=!tr.strokes.length};
+ const fit=()=>{const d=Math.min(2,devicePixelRatio||1);cv.width=Math.max(1,Math.round(pad.clientWidth*d));cv.height=Math.max(1,Math.round(pad.clientHeight*d));zz=size(x,cv.width,cv.height);render()};
+ new ResizeObserver(fit).observe(pad);document.fonts&&document.fonts.ready.then(fit);
+ let live=null;const pt=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]};
+ cv.onpointerdown=e=>{e.preventDefault();cv.setPointerCapture(e.pointerId);live=[pt(e)];tr.strokes.push(live);render();labels()};
+ cv.onpointermove=e=>{if(!live)return;const a=e.getCoalescedEvents&&e.getCoalescedEvents();(a&&a.length?a:[e]).forEach(v=>live.push(pt(v)));render()};
+ cv.onpointerup=cv.onpointercancel=()=>{live=null};cv.oncontextmenu=e=>e.preventDefault();
+ $('#un').onclick=()=>{tr.strokes.pop();render();labels()};
+ $('#cl').onclick=()=>{tr.strokes=[];render();labels()};
+ $('#gd').onclick=()=>{tr.guide=!tr.guide;render();labels()};
+ $('#md').onclick=()=>{tr.model=!tr.model;labels()};
+ $('#tm').onclick=()=>say(L.length==1?letterName(L):L.toLowerCase(),.7);
+ $('#ok').onclick=()=>{const w=cv.width,h=cv.height;let cov=0,out=1;
+  if(tr.strokes.length){const g=document.createElement('canvas'),k=document.createElement('canvas');g.width=k.width=w;g.height=k.height=h;const gc=g.getContext('2d'),kc=k.getContext('2d');gc.fillStyle=kc.fillStyle=kc.strokeStyle='#000';gl(gc,w,h);paint(kc,w,h,1.8);
+   const a=gc.getImageData(0,0,w,h).data,b=kc.getImageData(0,0,w,h).data;let G=0,H=0,B=0,O=0;
+   for(let i=3;i<a.length;i+=16){const ig=a[i]>100,is=b[i]>100;if(ig){G++;if(is)H++}if(is){B++;if(!ig)O++}}cov=G?H/G:0;out=B?O/B:1}
+  const good=cov>=.5&&out<=.6;
+  if(!good&&!tr.warned){tr.warned=true;const t=!tr.strokes.length?'Passe o dedo por cima do desenho. Pode começar!':cov<.5?'Quase! Tente passar por cima de tudo.':'Boa! Tente ficar mais perto do desenho.';$('#m').textContent=t;liaSays(t);navigator.vibrate&&navigator.vibrate([10,40,10]);return}
+  navigator.vibrate&&navigator.vibrate(20);
+  if(tr.i==n-1)return tr.mode=='name'?nameWin():win();
+  tr.i++;tr.strokes=[];tr.warned=false;tr.say=`${good?['Muito bem!','Isso mesmo!','Ficou lindo!'][tr.i%3]:'Tudo bem, vamos para a próxima.'} Agora ${tr.mode=='name'?'a letra '+letterName(tr.L[tr.i]):'a sílaba '+tr.L[tr.i].toLowerCase()}.`;go(drawTrace,2)};
+ labels();setTimeout(()=>liaSays(tr.say),350);
+}
+async function nameWin(){stopVoice();confetti();navigator.vibrate&&navigator.vibrate([30,60,30]);S.nameDone=true;bump();save();
+ scr.innerHTML=`<div class="word" style="margin-top:32px"><span>${tr.L.join('')}</span></div><h1 style="text-align:center">Você escreveu o seu nome!</h1><p class="msg">Esta é a sua primeira palavra, ${name()}.</p>
+ <button class="cta" id="nx">Próxima palavra${ic('go')}</button><button class="ghost" id="hm">Ver minha jornada</button>`;
+ $('#nx').onclick=()=>go(lesson,2);$('#hm').onclick=()=>go(journey,1);
+ await liaSays(`${name()}, você escreveu o seu nome! Esta é a sua primeira palavra. Estou muito orgulhosa de você.`)}
+
 /* ===== Marca LIA: ideia do shutter-glyph-footer (21st), portada p/ vanilla. Toque na letra: vira e a Lia fala ===== */
 const MK=`<section class="mk" aria-label="Lia"><svg viewBox="0 0 209 100" role="group" aria-label="LIA"><defs><linearGradient id="lg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="209" y2="100"><stop offset="0" stop-color="#1763AE"/><stop offset=".6" stop-color="#0B8283"/><stop offset="1" stop-color="#2D8F57"/></linearGradient></defs>${[['L','ele','M0 0H19V100H0ZM0 83H68V100H0Z','0" width="68'],['I','i','M80 0H101V100H80Z','70" width="41'],['A','a','M150 0H173L136 100H113ZM150 0H173L209 100H186ZM131 60H191V76H131Z','113" width="96']].map(g=>`<g class="gl" tabindex="0" role="button" aria-label="Letra ${g[0]}, toque para ouvir" data-s="${g[1]}"><rect x="${g[3]}" y="0" height="100" fill="transparent"/><path d="${g[2]}"/></g>`).join('')}</svg><p class="soft" style="font-size:16px">Toque nas letras para ouvir a Lia</p></section>`;
 
 /* ===== Motion (vanilla, via CDN). Sem Motion ou com "reduzir movimento": tudo aparece parado ===== */
+scr.addEventListener('mousedown',e=>{if(e.target.closest&&e.target.closest('.gl'))e.preventDefault()});
 const MO=window.Motion;
 if(MO&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
 const { animate, inView, stagger } = MO;

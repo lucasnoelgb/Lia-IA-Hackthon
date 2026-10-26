@@ -20,3 +20,12 @@ Gerado com a metodologia ui-ux-pro-max (`--design-system`, motion 5, density 3).
 - [x] Contraste de texto ≥ 4.5:1 nos dois temas
 - [x] Reduzir movimento respeitado
 - [ ] Testar em 375px com texto do sistema no maior tamanho
+
+## Estética (claude-cookbooks)
+Quatro dimensões do guia `prompting_for_frontend_aesthetics`, como ficaram no Lia:
+| Dimensão | No Lia |
+|---|---|
+| Tipografia | Bricolage Grotesque (títulos) + Atkinson Hyperlegible (corpo, por acessibilidade); `text-wrap:balance` nos títulos |
+| Cor e tema | Tokens CSS, azul-verde dominante, laranja de acento, tema solarpunk |
+| Movimento | Entrada em sequência (Motion), sem micro-animações extras |
+| Fundo | Brilhos em gradiente, colinas em SVG com florzinhas, anéis nos cards de destaque |

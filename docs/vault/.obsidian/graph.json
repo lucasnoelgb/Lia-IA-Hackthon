@@ -1,0 +1,42 @@
+{
+  "collapse-filter": true,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": true,
+  "colorGroups": [
+    {
+      "query": "tag:#tela",
+      "color": {
+        "a": 1,
+        "rgb": 1532846
+      }
+    },
+    {
+      "query": "tag:#design",
+      "color": {
+        "a": 1,
+        "rgb": 2985815
+      }
+    },
+    {
+      "query": "tag:#qualidade",
+      "color": {
+        "a": 1,
+        "rgb": 16747325
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": true,
+  "centerStrength": 0.518713248970312,
+  "repelStrength": 10,
+  "linkStrength": 1,
+  "linkDistance": 250
+}
