@@ -1,6 +1,7 @@
 # Lia — Palavra Geradora
+<img width="3840" height="2160" alt="Lia — Educação e aprendizagem - slide 1" src="https://github.com/user-attachments/assets/6194f174-bb5f-4c59-b613-73c4c737e6f0" />
 
-App de alfabetização para adultos. Ler, escrever e falar no seu ritmo, com a voz da Lia e com as palavras da vida de cada pessoa. Sem e-mail, senha ou CPF: os dados ficam só no aparelho.
+<br>App de alfabetização para adultos. Ler, escrever e falar no seu ritmo, com a voz da Lia e com as palavras da vida de cada pessoa. Sem e-mail, senha ou CPF: os dados ficam só no aparelho.
 
 ## Como rodar
 Arquivo único, sem build e sem npm. Abra `index.html` no navegador, ou publique no GitHub Pages (Settings → Pages → Branch `main` / root).
