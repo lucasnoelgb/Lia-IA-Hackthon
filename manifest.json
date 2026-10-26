@@ -1,0 +1,20 @@
+{
+  ".github/workflows/ci.yml": {
+    "mtime": 1792971933.0,
+    "seen": 1792983032.7164721,
+    "ast_hash": "8339aa25b3732a8bed7a9329584aaf94",
+    "semantic_hash": "8339aa25b3732a8bed7a9329584aaf94"
+  },
+  ".pre-commit-config.yaml": {
+    "mtime": 1792971933.0,
+    "seen": 1792983032.716478,
+    "ast_hash": "579a1ce02555fd657efffe0d82b8f274",
+    "semantic_hash": "579a1ce02555fd657efffe0d82b8f274"
+  },
+  "tests/smoke.py": {
+    "mtime": 1792971933.0,
+    "seen": 1792983032.7164814,
+    "ast_hash": "db63ae04bb49f9e8b98531fc9c922cb7",
+    "semantic_hash": "db63ae04bb49f9e8b98531fc9c922cb7"
+  }
+}

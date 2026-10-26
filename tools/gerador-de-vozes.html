@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Gerador de vozes da Lia</title>
+<style>
+:root{--bg:#f4f8f6;--ink:#10303a;--card:#fff;--line:#c9d9d6;--pri:#0b6f70;--acc:#b4500a}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1d22;--ink:#e8f2f0;--card:#16292f;--line:#2c474e;--pri:#4fc1bd;--acc:#f0a15f}}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 system-ui,sans-serif}
+main{max-width:640px;margin:0 auto;padding:24px 18px 60px}
+h1{font-size:28px;margin:0 0 6px}p{margin:8px 0}.s{opacity:.8;font-size:16px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input{width:100%;box-sizing:border-box;font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+button{font:inherit;font-weight:700;padding:12px 18px;border-radius:12px;border:0;background:var(--pri);color:#fff;margin:10px 8px 0 0;cursor:pointer}
+button.g{background:transparent;color:var(--pri);border:2px solid var(--pri)}button:disabled{opacity:.5;cursor:default}
+progress{width:100%;height:18px}#log{font:14px/1.4 ui-monospace,monospace;max-height:180px;overflow:auto;white-space:pre-wrap;margin-top:8px}
+.w{border-left:4px solid var(--acc);padding-left:12px}
+</style>
+</head>
+<body>
+<main>
+<h1>Gerador de vozes da Lia</h1>
+<p class="s">Gera as falas fixas da Lia com a voz da ElevenLabs e baixa um <b>audio.zip</b>. Não precisa de terminal.</p>
+<p class="w s">A chave fica só nesta aba: não é salva, não vai para o repositório e é enviada apenas para a ElevenLabs. Não publique esta página com a chave preenchida.</p>
+<div class="c">
+ <label for="k">Chave da ElevenLabs (ELEVENLABS_API_KEY)</label><input id="k" type="password" autocomplete="off" spellcheck="false">
+ <label for="v">ID da voz</label><input id="v" value="m151rjrbWXbBqyq56tly" spellcheck="false">
+ <label for="m">Modelo</label><input id="m" value="eleven_v4" spellcheck="false">
+ <button class="g" id="t">Ouvir um teste</button><button id="b">Gerar todas as falas</button>
+ <p class="s" id="n"></p><progress id="p" value="0" max="1" hidden></progress><div id="log" aria-live="polite"></div>
+ <audio id="a" controls hidden style="width:100%;margin-top:10px"></audio>
+</div>
+<div class="c s"><b>Depois de baixar:</b> extraia o <b>audio.zip</b> dentro da pasta do projeto (vai criar/atualizar a pasta <code>audio/</code>), faça commit e abra o app por <code>make serve</code> ou pelo GitHub Pages. Abrindo o <code>index.html</code> direto do disco, o navegador bloqueia a leitura dos áudios e a Lia usa a voz robótica.</div>
+</main>
+<script>
+const TEXTOS=/*TEXTOS*/["foto","fo","to","fo to. foto","neto","ne","ne to. neto","beijo","bei","jo","bei jo. beijo","áudio","áu","dio","áu dio. áudio","mensagem","men","sa","gem","men sa gem. mensagem","rua","ru","a","ru a. rua","ponto","pon","pon to. ponto","linha","li","nha","li nha. linha","volta","vol","ta","vol ta. volta","centro","cen","tro","cen tro. centro","nome","no","me","no me. nome","letra","le","tra","le tra. letra","caneta","ca","ca ne ta. caneta","documento","do","cu","do cu men to. documento","assinatura","as","si","na","tu","ra","as si na tu ra. assinatura","vida","vi","da","vi da. vida","amor","mor","a mor. amor","livro","vro","li vro. livro","graça","gra","ça","gra ça. graça","esperança","es","pe","ran","es pe ran ça. esperança","ovo","o","vo","o vo. ovo","bolo","bo","lo","bo lo. bolo","farinha","fa","ri","fa ri nha. farinha","receita","re","cei","re cei ta. receita","tempero","tem","ro","tem pe ro. tempero","casa","ca sa. casa","mesa","me sa. mesa","amigo","mi","go","a mi go. amigo","família","mí","lia","fa mí lia. família","trabalho","ba","lho","tra ba lho. trabalho","bê","cê","dê","é","éfe","gê","agá","i","jóta","cá","éle","ême","ene","ó","pê","quê","érre","ésse","tê","u","vê","dáblio","xis","ípsilon","zê","cê cedilha","ele","Oi! Eu sou a Lia. Como você quer ser chamado?","Como você quer ser chamado?","Qual é o seu maior objetivo?","O que é mais difícil hoje?","Qual é o seu objetivo?","Não consegui ouvir. Você pode escrever.","Quase lá! Vamos juntas de novo?","Passe o dedo por cima do desenho. Pode começar!","Quase! Tente passar por cima de tudo.","Boa! Tente ficar mais perto do desenho."]/*FIM*/;
+const $=s=>document.querySelector(s),log=m=>{const l=$('#log');l.textContent+=m+'\n';l.scrollTop=l.scrollHeight};
+$('#n').textContent=TEXTOS.length+' falas na lista.';
+const chave=t=>t.trim().toLowerCase();
+const hash=s=>{let x=5381;for(const c of s)x=((x*33)^c.codePointAt(0))>>>0;return x.toString(36)};
+async function tts(t,v,m,key){
+ for(let i=0;i<4;i++){
+  const r=await fetch('https://api.elevenlabs.io/v1/text-to-speech/'+encodeURIComponent(v)+'?output_format=mp3_44100_128',{method:'POST',headers:{'xi-api-key':key,'Content-Type':'application/json'},body:JSON.stringify({text:t,model_id:m,language_code:'pt'})});
+  if(r.ok)return new Uint8Array(await r.arrayBuffer());
+  if(r.status==429||r.status>=500){await new Promise(z=>setTimeout(z,1500*(i+1)));continue}
+  let d='';try{d=(await r.json()).detail?.message||''}catch(e){}
+  throw new Error('HTTP '+r.status+' '+d)}
+ throw new Error('muitas tentativas')}
+const cfg=()=>({k:$('#k').value.trim(),v:$('#v').value.trim(),m:$('#m').value.trim()});
+$('#t').onclick=async()=>{const{k,v,m}=cfg();if(!k)return log('Cole a chave primeiro.');$('#t').disabled=true;
+ try{const b=await tts('Oi! Eu sou a Lia. Vamos aprender juntas?',v,m,k);const a=$('#a');a.hidden=false;a.src=URL.createObjectURL(new Blob([b],{type:'audio/mpeg'}));a.play().catch(()=>{});log('Teste ok. Se a voz agradou, gere todas.')}
+ catch(e){log('Erro: '+e.message)}$('#t').disabled=false};
+/* zip sem compressão (mp3 já é comprimido) */
+const CT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc=u=>{let c=~0;for(const b of u)c=CT[(c^b)&255]^(c>>>8);return~c>>>0};
+function zip(files){const enc=new TextEncoder(),parts=[],cen=[];let off=0;
+ for(const[name,data]of files){const nb=enc.encode(name),cr=crc(data);
+  const h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x800,true);h.setUint32(14,cr,true);h.setUint32(18,data.length,true);h.setUint32(22,data.length,true);h.setUint16(26,nb.length,true);
+  parts.push(h.buffer,nb,data);
+  const c=new DataView(new ArrayBuffer(46));c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x800,true);c.setUint32(16,cr,true);c.setUint32(20,data.length,true);c.setUint32(24,data.length,true);c.setUint16(28,nb.length,true);c.setUint32(42,off,true);
+  cen.push(c.buffer,nb);off+=30+nb.length+data.length}
+ let cs=0;cen.forEach(x=>cs+=x.byteLength||x.length);
+ const e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+ return new Blob([...parts,...cen,e.buffer],{type:'application/zip'})}
+$('#b').onclick=async()=>{const{k,v,m}=cfg();if(!k)return log('Cole a chave primeiro.');
+ $('#b').disabled=$('#t').disabled=true;const p=$('#p');p.hidden=false;p.max=TEXTOS.length;p.value=0;
+ const files=[],man={},falhas=[];let i=0,feitos=0;
+ const trab=async()=>{while(i<TEXTOS.length){const t=TEXTOS[i++];
+  try{const b=await tts(t,v,m,k),nome='audio/'+hash(v+'|'+m+'|'+chave(t))+'.mp3';files.push([nome,b]);man[chave(t)]=nome}
+  catch(e){falhas.push(t);log('erro em "'+t+'": '+e.message);if(/401|403/.test(e.message)){i=TEXTOS.length}}
+  p.value=++feitos}};
+ await Promise.all([trab(),trab(),trab()]);
+ if(!files.length){log('Nada foi gerado. Confira a chave, a voz e o modelo.');$('#b').disabled=$('#t').disabled=false;return}
+ files.push(['audio/manifest.json',new TextEncoder().encode(JSON.stringify({voz:v,modelo:m,files:man},null,1))]);
+ const a=document.createElement('a');a.href=URL.createObjectURL(zip(files));a.download='audio.zip';a.click();
+ log('Pronto: '+(files.length-1)+' áudios'+(falhas.length?' ('+falhas.length+' falharam; rode de novo para completar)':'')+'. O download do audio.zip começou.');
+ $('#b').disabled=$('#t').disabled=false};
+</script>
+</body>
+</html>

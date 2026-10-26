@@ -1,0 +1,206 @@
+{
+  ".github/workflows/ci.yml": {
+    "mtime": 1793053307.3502438,
+    "seen": 1793053351.3257954,
+    "ast_hash": "01c4e87e71fb9feddf74a3dd472b6f3b",
+    "semantic_hash": ""
+  },
+  ".pre-commit-config.yaml": {
+    "mtime": 1792971933.0,
+    "seen": 1792983032.716478,
+    "ast_hash": "579a1ce02555fd657efffe0d82b8f274",
+    "semantic_hash": "579a1ce02555fd657efffe0d82b8f274"
+  },
+  "tests/smoke.py": {
+    "mtime": 1793053207.6674247,
+    "seen": 1793053255.918738,
+    "ast_hash": "e5a5ad0f127699a73ddd7a1f6f096f43",
+    "semantic_hash": ""
+  },
+  "js/achievements.js": {
+    "mtime": 1793053035.575673,
+    "seen": 1793053255.9187202,
+    "ast_hash": "30d037c73dc3394d4e1d2f66cfc32784",
+    "semantic_hash": ""
+  },
+  "js/brand.js": {
+    "mtime": 1793053015.4779294,
+    "seen": 1793053255.9187214,
+    "ast_hash": "3d50ab06c4e1a4dee5220571c91b81b3",
+    "semantic_hash": ""
+  },
+  "js/data.js": {
+    "mtime": 1793053015.4779797,
+    "seen": 1793053255.9187226,
+    "ast_hash": "d2adc302fd5b04ab3c19ea2168a989f1",
+    "semantic_hash": ""
+  },
+  "js/home.js": {
+    "mtime": 1793053015.4778264,
+    "seen": 1793053255.9187236,
+    "ast_hash": "b2fe45bccd8e2080b0084ff1a5794cf4",
+    "semantic_hash": ""
+  },
+  "js/icons.js": {
+    "mtime": 1793053015.4777339,
+    "seen": 1793053255.9187248,
+    "ast_hash": "ee291f2f32233590369d645f73ab2df0",
+    "semantic_hash": ""
+  },
+  "js/journey.js": {
+    "mtime": 1793053015.477845,
+    "seen": 1793053255.918726,
+    "ast_hash": "b85098f63ed7d659ca48f2bf6539e7c9",
+    "semantic_hash": ""
+  },
+  "js/lesson.js": {
+    "mtime": 1793053015.4778686,
+    "seen": 1793053255.918727,
+    "ast_hash": "eed391cdee5c6f5f8b13f8b2f69f0896",
+    "semantic_hash": ""
+  },
+  "js/main.js": {
+    "mtime": 1793053015.4779603,
+    "seen": 1793053255.9187279,
+    "ast_hash": "1ea7630dfb7586ea5d36673c335a1b5d",
+    "semantic_hash": ""
+  },
+  "js/motion.js": {
+    "mtime": 1793053015.477946,
+    "seen": 1793053255.9187293,
+    "ast_hash": "fb299c99ed13bafa6362edfe1e03b67a",
+    "semantic_hash": ""
+  },
+  "js/onboarding.js": {
+    "mtime": 1793053015.4777992,
+    "seen": 1793053255.9187303,
+    "ast_hash": "5f1260cbb71e3ae82344c56d7bda1ec7",
+    "semantic_hash": ""
+  },
+  "js/state.js": {
+    "mtime": 1793053015.4777603,
+    "seen": 1793053255.9187315,
+    "ast_hash": "cef2ea24780f4ada52129f21046dd6f2",
+    "semantic_hash": ""
+  },
+  "js/trace.js": {
+    "mtime": 1793053015.477913,
+    "seen": 1793053255.918733,
+    "ast_hash": "fc242042e380773a6be7d9be330780ab",
+    "semantic_hash": ""
+  },
+  "js/utils.js": {
+    "mtime": 1793053015.4777782,
+    "seen": 1793053255.918734,
+    "ast_hash": "c4d54724cb76d384ad657efa145ba4f6",
+    "semantic_hash": ""
+  },
+  "js/voice.js": {
+    "mtime": 1793053175.2613084,
+    "seen": 1793053255.918735,
+    "ast_hash": "974ae1febd359b6427264637124551d2",
+    "semantic_hash": ""
+  },
+  ".github/pull_request_template.md": {
+    "mtime": 1792971933.0,
+    "seen": 1793053255.9187393,
+    "ast_hash": "705c4cdbe26908f4da4d29149ff4b11f",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1793053307.3504405,
+    "seen": 1793053351.3258464,
+    "ast_hash": "b937804b604b8743c2abe71d4faa2f5f",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1793053370.0455618,
+    "seen": 1793053370.7009664,
+    "ast_hash": "427228b5f0ca060719e5cc646b946b86",
+    "semantic_hash": ""
+  },
+  "docs/design-system.md": {
+    "mtime": 1792990607.0,
+    "seen": 1793053255.9187434,
+    "ast_hash": "e3ebb016257a9f41e76dd7d654a1b986",
+    "semantic_hash": ""
+  },
+  "docs/vault/Acessibilidade.md": {
+    "mtime": 1793053296.5689332,
+    "seen": 1793053351.3258533,
+    "ast_hash": "904091d646e3fff7fb10cb98b64edaca",
+    "semantic_hash": ""
+  },
+  "docs/vault/Arquitetura.md": {
+    "mtime": 1793053370.043738,
+    "seen": 1793053370.7009706,
+    "ast_hash": "6944776e4ca37939c90ea814bdf1c923",
+    "semantic_hash": ""
+  },
+  "docs/vault/Design.md": {
+    "mtime": 1792990607.0,
+    "seen": 1793053255.9187465,
+    "ast_hash": "bb2e73321e979a0a13a3f379b454d9a3",
+    "semantic_hash": ""
+  },
+  "docs/vault/Lia.md": {
+    "mtime": 1793053296.5686057,
+    "seen": 1793053351.3258617,
+    "ast_hash": "f9e51813035d88e41a802af648362dc7",
+    "semantic_hash": ""
+  },
+  "docs/vault/Li\u00e7\u00e3o do nome.md": {
+    "mtime": 1792992936.0,
+    "seen": 1793053255.918749,
+    "ast_hash": "869698903ce58b8030dcb700e5b7f15f",
+    "semantic_hash": ""
+  },
+  "docs/vault/Pr\u00f3ximos passos.md": {
+    "mtime": 1793053296.5553744,
+    "seen": 1793053351.3258665,
+    "ast_hash": "b21d5b2c0879be9f274d7c823b077c0a",
+    "semantic_hash": ""
+  },
+  "docs/vault/Testes.md": {
+    "mtime": 1793053296.5682542,
+    "seen": 1793053351.3258688,
+    "ast_hash": "016d902eb967713c18fde16a42761d21",
+    "semantic_hash": ""
+  },
+  "docs/vault/Tra\u00e7ado.md": {
+    "mtime": 1792990607.0,
+    "seen": 1793053255.9187534,
+    "ast_hash": "ab45ff8c0a019fec1359ad9aa817cd02",
+    "semantic_hash": ""
+  },
+  "docs/vault/Trilha adaptativa.md": {
+    "mtime": 1792992936.0,
+    "seen": 1793053255.9187543,
+    "ast_hash": "c854e644e0f24434c01fb085b3acc02f",
+    "semantic_hash": ""
+  },
+  "docs/vault/Vozes.md": {
+    "mtime": 1793053296.5519786,
+    "seen": 1793053351.3258755,
+    "ast_hash": "e94dd4e890bb9ae5d660cf99ec1498ae",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1793053040.409923,
+    "seen": 1793053255.918758,
+    "ast_hash": "c69eedac9e00b74a4b3e2e751f2491d3",
+    "semantic_hash": ""
+  },
+  "assets/logo.webp": {
+    "mtime": 1793053015.4774947,
+    "seen": 1793053255.9187613,
+    "ast_hash": "b9dfc64df613a9fe1f703b55577a7cc8",
+    "semantic_hash": ""
+  },
+  "docs/vault/Estrutura de arquivos.md": {
+    "mtime": 1793053296.5529816,
+    "seen": 1793053351.3258593,
+    "ast_hash": "84f74c11bab9629bbde0eb02ac47f8ab",
+    "semantic_hash": ""
+  }
+}

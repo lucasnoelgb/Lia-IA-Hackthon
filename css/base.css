@@ -1,0 +1,17 @@
+/* Reset, tipografia, casca do app (#app/.screen), botão base, ícone e logo */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:#CFD8DF;color:var(--ink);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:20px;line-height:1.5}
+h1,h2,h3,.pf{font-family:'Bricolage Grotesque','Atkinson Hyperlegible',system-ui,sans-serif;letter-spacing:-.01em}
+#app{max-width:440px;height:100%;margin:0 auto;background:var(--paper);position:relative;overflow:hidden;display:flex;flex-direction:column}
+@media(min-width:500px){#app{height:min(100%,880px);margin:auto;border-radius:36px;box-shadow:0 24px 70px rgba(20,34,58,.3)}body{display:flex;align-items:center}}
+.screen{flex:1;overflow-y:auto;padding:20px 20px 120px;display:flex;flex-direction:column;gap:20px}
+#app.nonav .screen{padding-bottom:28px}
+h1{font-size:32px;line-height:1.1;font-weight:800;margin:0}h2{font-size:22px;font-weight:700;margin:0}h3{font-size:18px;margin:0}p{margin:0}
+.soft{color:var(--soft)}.lab{font-size:17px;font-weight:700}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,input:focus-visible{outline:4px solid var(--orange);outline-offset:3px}
+.ic{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.logo{height:42px;width:auto;display:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo,:root:not([data-theme="light"]) .wlogo{background:#fff;padding:6px 12px;border-radius:14px}}
+:root[data-theme="dark"] .logo,:root[data-theme="dark"] .wlogo{background:#fff;padding:6px 12px;border-radius:14px}

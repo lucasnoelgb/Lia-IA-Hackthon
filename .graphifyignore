@@ -1,0 +1,10 @@
+# Saídas antigas do graphify na raiz (a versão oficial fica em graphify-out/)
+/GRAPH_REPORT.md
+/graph.html
+/graph.json
+/manifest.json
+/cache/
+/.graphify_*
+# Ferramenta de geração de áudio e imagens não fazem parte do código do app
+/tools/
+*.png

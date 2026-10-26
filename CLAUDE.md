@@ -1,18 +1,23 @@
 # Lia — guia do projeto
 
-App de alfabetização para adultos (HTML único, JS vanilla, sem build).
+App de alfabetização para adultos (HTML + CSS + JS vanilla em arquivos separados, sem build e sem módulos ES).
 
 ## Comandos
 ```bash
 make serve   # http://localhost:8000
-make test    # teste de fumaça (Playwright)
+make check   # node --check em js/*.js
+make test    # check + teste de fumaça (Playwright)
+make graph   # graphify update . (atualiza graphify-out/)
 ```
 
 ## Estrutura
 ```
-index.html        # app inteiro (CSS + JS)
+index.html        # só a casca: <link> dos css/ e <script> dos js/, em ordem
+css/              # tokens, base, components, screens, effects, trace
+js/               # icons, data, state, voice, falar-resposta, utils, telas, trace, motion, main
+assets/           # logo.webp
 tests/smoke.py    # teste de fumaça
-docs/             # design system e decisões
+docs/             # design system e cofre do Obsidian (docs/vault)
 .github/          # CI e templates
 ```
 
@@ -23,7 +28,9 @@ docs/             # design system e decisões
 4. **Sem emoji como ícone estrutural.** Emojis das palavras são conteúdo pedagógico.
 5. **Layout:** `.screen` é flex com rolagem; filhos usam `flex-shrink:0` para não serem esmagados (bug do card de objetivo).
 6. **Dados:** só `localStorage`, sem e-mail/senha/CPF.
-7. **Antes de commitar:** `make test`.
+7. **Scripts clássicos, na ordem do `index.html`:** compartilham o escopo global (`S`, `go`, `say`…). Não usar `type=module` (quebraria abrir o arquivo direto). `motion.js` envolve `go()` e `win()`, então fica depois de `state.js` e `lesson.js`.
+8. **Voz:** só Web Speech API, em `js/voice.js`, sempre pt-BR e feminina quando houver. Não subir o pitch para "disfarçar" voz masculina. A pessoa pode trocar a voz em Conquistas > Meu perfil. `js/falar-resposta.js` (depois de `voice.js`) lê respostas de IA: `falar_resposta(texto)` limpa Markdown/emojis e fala com voz feminina pt-BR; nunca lança erro nem usa `alert()` (falhas só vão para o console e para o objeto devolvido).
+9. **Antes de commitar:** `make test`. Depois de mexer em código: `make graph` e atualize a nota certa em `docs/vault/`.
 
 ## Git
 Branch: `<usuario>/<descricao>`. Commits convencionais:
@@ -44,4 +51,4 @@ Ao criar ou mudar UI, trabalhe estas dimensões e evite o visual genérico de IA
 - Guarde os pontos em coordenadas 0–1 (sobrevive a redimensionar/girar).
 - A avaliação é só incentivo: avisa uma vez e deixa seguir. Nunca bloquear o aprendizado.
 - Lógica de vitória/dia passa por `bump()`.
-- Mapa de código: `graphify` roda sobre `.js`; hoje o JS está dentro do HTML (ver `docs/vault/Próximos passos.md`).
+- Mapa de código: `graphify` lê os `.js` em `js/` (resultado em `graphify-out/`; `.graphifyignore` na raiz).

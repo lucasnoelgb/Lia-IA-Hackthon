@@ -1,0 +1,4 @@
+/* Variáveis de cor e temas claro/escuro */
+:root{--paper:#F5F2EA;--card:#FFFFFF;--ink:#14223A;--soft:#52607A;--line:#E1DBCB;--blue:#1763AE;--teal:#0B8283;--green:#2D8F57;--leaf:#5FBF72;--orange:#FF8B3D;--oink:#B4500A;--tint:#E6F1F8;--g:linear-gradient(135deg,#1763AE 0%,#0B8283 58%,#2D8F57 100%);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0F1826;--card:#18253A;--ink:#EEF3F8;--soft:#AAB8CA;--line:#2A3B54;--tint:#1E3350;--oink:#FFB070;--blue:#6DB6F0;--green:#7FD08F;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0F1826;--card:#18253A;--ink:#EEF3F8;--soft:#AAB8CA;--line:#2A3B54;--tint:#1E3350;--oink:#FFB070;--blue:#6DB6F0;--green:#7FD08F;color-scheme:dark}

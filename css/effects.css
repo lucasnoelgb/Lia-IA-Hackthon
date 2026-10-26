@@ -1,0 +1,25 @@
+/* Motion (estados iniciais), marca LIA e atmosfera (brilhos, colinas, anéis) */
+/* ===== Motion + refinos (ui-ux-pro-max: Accessible & Ethical) ===== */
+/* Bug: filhos com overflow:hidden (.hero) encolhiam em vez de rolar */
+.screen>*{flex-shrink:0}
+html.mo #scr.pre>*{opacity:0}
+html.mo .rv{opacity:0}
+html.mo .gl{opacity:0}
+.field{transition:border-color .2s,box-shadow .2s}.field:focus{border-color:var(--blue);box-shadow:0 4px 0 var(--blue)}
+.meter i{transform-origin:0 50%}
+.mk{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 0 4px;border-top:2px solid var(--line)}
+.mk svg{width:min(240px,72%);height:auto;overflow:visible;touch-action:manipulation}
+.gl{transform-box:fill-box;transform-origin:50% 50%;cursor:pointer}.gl path{fill:url(#lg)}
+.gl,.gl *{outline:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}.mk svg{-webkit-tap-highlight-color:transparent}.gl:focus-visible path{stroke:var(--orange);stroke-width:5;paint-order:stroke}
+
+/* ===== Atmosfera e profundidade (claude-cookbooks: frontend_aesthetics, tema "solarpunk") ===== */
+:root{--glow1:rgba(255,139,61,.16);--glow2:rgba(95,191,114,.16);--bd:#CFD8DF;--hl:1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--glow1:rgba(255,139,61,.10);--glow2:rgba(95,191,114,.08);--bd:#0A111C;--hl:.55}}
+:root[data-theme="dark"]{--glow1:rgba(255,139,61,.10);--glow2:rgba(95,191,114,.08);--bd:#0A111C;--hl:.55}
+body{background:radial-gradient(60% 50% at 15% 20%,rgba(95,191,114,.35),transparent 70%),radial-gradient(50% 50% at 85% 80%,rgba(255,139,61,.28),transparent 70%),var(--bd)}
+#app{background:radial-gradient(120% 55% at 100% 0%,var(--glow1),transparent 60%),radial-gradient(90% 45% at 0% 100%,var(--glow2),transparent 60%),var(--paper)}
+#app::before{content:"";position:absolute;left:0;right:0;bottom:0;height:230px;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 440 230%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M0 120C80 70 160 90 240 105S380 85 440 100V230H0Z%22 fill=%22%235FBF72%22 fill-opacity=%22.16%22/%3E%3Cpath d=%22M0 160C100 120 200 150 300 135S410 125 440 140V230H0Z%22 fill=%22%232D8F57%22 fill-opacity=%22.14%22/%3E%3Cpath d=%22M0 195C90 170 180 190 270 178S400 170 440 182V230H0Z%22 fill=%22%230B8283%22 fill-opacity=%22.12%22/%3E%3Cg fill=%22%23FF8B3D%22 fill-opacity=%22.5%22%3E%3Ccircle cx=%2258%22 cy=%22152%22 r=%223%22/%3E%3Ccircle cx=%22132%22 cy=%22170%22 r=%222.5%22/%3E%3Ccircle cx=%22318%22 cy=%22158%22 r=%223%22/%3E%3Ccircle cx=%22392%22 cy=%22150%22 r=%222.5%22/%3E%3C/g%3E%3C/svg%3E") bottom/100% 100% no-repeat;opacity:var(--hl);pointer-events:none;z-index:0}
+.screen{position:relative;z-index:1}
+.hero,.wp,.idc{position:relative;overflow:hidden;isolation:isolate}
+.hero::before,.wp::before,.idc::before{content:"";position:absolute;z-index:-1;right:-70px;top:-70px;width:240px;height:240px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 16px,rgba(255,255,255,.12) 16px 18px);pointer-events:none}
+h1,h2,.goalh,.wp b{text-wrap:balance}
