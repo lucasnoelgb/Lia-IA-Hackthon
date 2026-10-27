@@ -11,7 +11,7 @@
 | **Para quem** | adultos que estão aprendendo a ler e a escrever |
 | **Repositório** | <https://github.com/lucasnoelgb/Lia-IA-Hackthon> |
 | **Demo** | <https://liahackthon.vercel.app/> |
-| **Video** | <https://lucasnoelgb.github.io/Video-de-exibicao/> |
+| **Video** | <https://lucasnoelgb.github.io/hacka/> |
 | **Equipe** | Lucas ([@lucasnoelgb](https://github.com/lucasnoelgb)) |
 > 📱 **Observação:** As funcionalidades de **voz e microfone** da Lia são **exclusivas para acesso via celular** (ou dispositivos móveis), aproveitando os recursos nativos do navegador do aparelho.
 
