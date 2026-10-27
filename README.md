@@ -13,6 +13,7 @@
 | **Demo** | <https://liahackthon.vercel.app/> |
 | **Video** | <https://lucasnoelgb.github.io/Video-de-exibicao/> |
 | **Equipe** | Lucas ([@lucasnoelgb](https://github.com/lucasnoelgb)) |
+> 📱 **Observação:** As funcionalidades de **voz e microfone** da Lia são **exclusivas para acesso via celular** (ou dispositivos móveis), aproveitando os recursos nativos do navegador do aparelho.
 
 ---
 
@@ -158,26 +159,23 @@ HTML, CSS e JavaScript puros, sem framework. [Motion](https://motion.dev) 11.11.
 ├── Makefile              make serve · make check · make test · make graph
 └── .env.example          sem chaves hoje
 ```
+### Por que usamos o Graphify com o Claude?
 
+* **Contexto Preciso (GraphRAG):** Em vez de fazer o Claude "adivinhar" ou ler arquivos isolados, o Graphify gera um mapa completo de nós (funções, variáveis e arquivos) e arestas (chamadas e dependências).
+* **Análise de Arquitetura:** O mapa atual em `js/` conta com **158 nós organizados em 16 comunidades**, ajudando o Claude a identificar lógicas duplicadas (como a função unificada `bump()`) e planejar refatorações sem quebrar dependências.
+* **Navegação Eficiente:** Permite que a IA navegue diretamente pelo `graph.json` ou consulte a documentação no cofre do Obsidian (`docs/vault/Arquitetura.md`), garantindo edições seguras e respostas rápidas.
+
+<img width="1761" height="934" alt="image" src="https://github.com/user-attachments/assets/32ef269f-6140-48f3-beea-d1ef62d823ff" />
+
+
+---
 Funções centrais: `go()` (troca de tela), `lesson()` (decide entre o nome e a palavra do dia),
 `drawTrace()` (a folha de traçado), `win()` e `bump()` (vitória, sequência de dias e jardim). O
 [graphify](https://github.com/Graphify-Labs/graphify) mapeia o código (agora em `js/`: 158 nós, 16
 comunidades) e apontou a lógica duplicada que virou `bump()`. Os arquivos são scripts clássicos carregados
 em ordem (sem módulos ES), então abrir o `index.html` direto no navegador continua funcionando.
 
-## Como rodar
 
-```bash
-# opção 1: abra index.html no navegador
-# opção 2: servidor local
-make serve                         # http://localhost:8000
-# testes
-pip install playwright && playwright install chromium
-make test
-```
-
-Não há variáveis de ambiente nem build. Para publicar: GitHub Pages (Settings → Pages → branch `main`,
-pasta raiz).
 
 ## Decisões de projeto
 
